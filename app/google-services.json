@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "868832033871",
+    "project_id": "todosphere-aef7b",
+    "storage_bucket": "todosphere-aef7b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:868832033871:android:e088c7591f9c631356be3a",
+        "android_client_info": {
+          "package_name": "com.sofutil.todosw"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzOt0s0xXk3MNHqia3GE6G_j-jZ6cRC2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

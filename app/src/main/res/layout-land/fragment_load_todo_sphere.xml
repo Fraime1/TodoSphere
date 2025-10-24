@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/todoSphereBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/todo_sphere_landscape_back" />
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/todoSphereLoadingGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="todoSphereProgressText,todoSphereProgress" />
+
+    <TextView
+        android:id="@+id/todoSphereProgressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_bold"
+        android:text="Loading..."
+        android:shadowColor="@color/todoSphereTexColor"
+        android:shadowRadius="10"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/todoSphereProgress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/todoSphereProgress"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:indeterminateTint="@color/white"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.82" />
+
+    <TextView
+        android:id="@+id/todoSphereLoadConnectionStateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center"
+        android:shadowColor="@color/black"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="10"
+        android:text="There is no internet connection"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.78" />
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/todoSphereNotiGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="todoSphereNotifText,todoSphereGrandButton,todoSphereSkipButton,todoSphereNotifText2" />
+
+    <TextView
+        android:id="@+id/todoSphereNotifText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center"
+        android:shadowColor="@color/todoSphereTexColor"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="5"
+        android:text="Allow notifications about bonuses and promos"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/todoSphereNotifText2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lineHeight="35dp" />
+
+    <Button
+        android:id="@+id/todoSphereGrandButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/todo_sphere_btn"
+        android:fontFamily="@font/inter_bold"
+        android:shadowColor="@color/todoSphereTexColor"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="5"
+        android:text="Yes, I Want Bonuses!"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/todoSphereSkipButton"
+        app:layout_constraintEnd_toEndOf="@+id/todoSphereNotifText"
+        app:layout_constraintStart_toStartOf="@+id/todoSphereNotifText" />
+
+    <TextView
+        android:id="@+id/todoSphereSkipButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="5"
+        android:shadowColor="@color/todoSphereTexColor"
+        android:textColor="@color/white"
+        android:text="Skip"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/todoSphereNotifText"
+        app:layout_constraintStart_toStartOf="@+id/todoSphereNotifText" />
+
+
+    <TextView
+        android:id="@+id/todoSphereNotifText2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center"
+        android:letterSpacing="0"
+        android:shadowColor="@color/todoSphereTexColor"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="5"
+        android:text="Stay tuned with best offers from our casino"
+        android:textColor="@color/white"
+
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/todoSphereGrandButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lineHeight="35dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/todo_sphere_graph"
+    app:startDestination="@id/todoSphereLoadFragment">
+
+    <fragment
+        android:id="@+id/todoSphereLoadFragment"
+        android:name="com.sofutil.todosw.eriger.presentation.ui.load.TodoSphereLoadFragment"
+        android:label="TodoSphereLoadFragment" >
+        <action
+            android:id="@+id/action_todoSphereLoadFragment_to_todoSphereV"
+            app:destination="@id/todoSphereV"
+            app:popUpTo="@id/todo_sphere_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/todoSphereV"
+        android:name="com.sofutil.todosw.eriger.presentation.ui.view.TodoSphereV"
+        android:label="TodoSphereV" >
+        <action
+            android:id="@+id/action_todoSphereV_self"
+            app:destination="@id/todoSphereV" />
+    </fragment>
+</navigation>
