@@ -16,6 +16,8 @@ import com.sofutil.todosw.R
 import com.sofutil.todosw.TodoSphereActivity
 
 private const val TODO_SPHERE_CHANNEL_ID = "todo_sphere_notifications"
+private const val TODO_SPHERE_CHANNEL_NAME = "TodoSphere Notifications"
+private const val TODO_SPHERE_NOT_TAG = "TodoSphere"
 
 class TodoSpherePushService : FirebaseMessagingService(){
     override fun onNewToken(token: String) {
@@ -28,9 +30,9 @@ class TodoSpherePushService : FirebaseMessagingService(){
         // Обработка notification payload
         remoteMessage.notification?.let {
             if (remoteMessage.data.contains("url")) {
-                todoSphereShowNotification(it.title ?: "TodoSphere", it.body ?: "", data = remoteMessage.data["url"])
+                todoSphereShowNotification(it.title ?: TODO_SPHERE_NOT_TAG, it.body ?: "", data = remoteMessage.data["url"])
             } else {
-                todoSphereShowNotification(it.title ?: "TodoSphere", it.body ?: "", data = null)
+                todoSphereShowNotification(it.title ?: TODO_SPHERE_NOT_TAG, it.body ?: "", data = null)
             }
         }
 
@@ -48,7 +50,7 @@ class TodoSpherePushService : FirebaseMessagingService(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 TODO_SPHERE_CHANNEL_ID,
-                "EggSafe Notifications",
+                TODO_SPHERE_CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_HIGH
             )
             todoSphereNotificationManager.createNotificationChannel(channel)
