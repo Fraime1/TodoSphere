@@ -18,6 +18,6 @@ data class TodoSphereParam (
     @SerializedName("push_token")
     val todoSpherePushToken: String,
     @SerializedName("firebase_project_id")
-    val todoSphereFirebaseProjectId: String = "eggsafe-encyclopedia",
+    val todoSphereFirebaseProjectId: String = "todosphere-aef7b",
 
     )
