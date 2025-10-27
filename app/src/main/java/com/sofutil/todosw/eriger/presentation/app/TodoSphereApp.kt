@@ -5,7 +5,11 @@ import android.view.WindowManager
 import com.sofutil.todosw.eriger.data.utils.TodoSphereAppsflyer
 import com.sofutil.todosw.eriger.data.utils.TotoSphereSystemService
 import com.sofutil.todosw.eriger.presentation.di.todoSphereModule
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -36,8 +40,8 @@ class TodoSphereApp : Application() {
         val todoSphereAppsflyer = TodoSphereAppsflyer(this)
         val totoSphereSystemService = TotoSphereSystemService(this)
         if (totoSphereSystemService.todoSphereIsOnline()) {
-            todoSphereAppsflyer.init { data ->
-                todoSphereConversionFlow.value = data
+            CoroutineScope(Dispatchers.IO).launch {
+                todoSphereConversionFlow.value = todoSphereAppsflyer.init()
             }
         }
     }
