@@ -62,9 +62,6 @@ class TodoSphereVi(
                 }
                 else if (URLUtil.isNetworkUrl(link)) {
                     false
-                } else if(link.startsWith("intent")){
-                    todoSphereIntentStart(link)
-                    true
                 } else {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
                     try {
@@ -74,6 +71,18 @@ class TodoSphereVi(
                     }
                     true
                 }
+//                else if(link.startsWith("intent")){
+//                    todoSphereIntentStart(link)
+//                    true
+//                } else {
+//                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+//                    try {
+//                        todoSphereContext.startActivity(intent)
+//                    } catch (e: Exception) {
+//                        Toast.makeText(todoSphereContext, "This application not found", Toast.LENGTH_SHORT).show()
+//                    }
+//                    true
+//                }
             }
 
 
@@ -135,24 +144,24 @@ class TodoSphereVi(
         }
     }
 
-    private fun todoSphereIntentStart(link: String) {
-        var scheme = ""
-        var token = ""
-        val part1 = link.split("#").first()
-        val part2 = link.split("#").last()
-        token = part1.split("?").last()
-        part2.split(";").forEach {
-            if (it.startsWith("scheme")) {
-                scheme = it.split("=").last()
-            }
-        }
-        val finalUriString = "$scheme://receiveetransfer?$token"
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(finalUriString))
-        try {
-            todoSphereContext.startActivity(intent)
-        } catch (e: Exception) {
-            Toast.makeText(todoSphereContext, "This application not found", Toast.LENGTH_SHORT).show()
-        }
-    }
+//    private fun todoSphereIntentStart(link: String) {
+//        var scheme = ""
+//        var token = ""
+//        val part1 = link.split("#").first()
+//        val part2 = link.split("#").last()
+//        token = part1.split("?").last()
+//        part2.split(";").forEach {
+//            if (it.startsWith("scheme")) {
+//                scheme = it.split("=").last()
+//            }
+//        }
+//        val finalUriString = "$scheme://receiveetransfer?$token"
+//        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(finalUriString))
+//        try {
+//            todoSphereContext.startActivity(intent)
+//        } catch (e: Exception) {
+//            Toast.makeText(todoSphereContext, "This application not found", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
 }
