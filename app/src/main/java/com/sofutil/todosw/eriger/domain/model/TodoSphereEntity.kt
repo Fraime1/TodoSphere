@@ -9,5 +9,5 @@ data class TodoSphereEntity (
     @SerializedName("url")
     val todoSphereUrl: String,
     @SerializedName("expires")
-    val todoSphereExpires: Int,
+    val todoSphereExpires: Long,
 )

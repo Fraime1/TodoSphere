@@ -9,14 +9,13 @@ import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.PermissionRequest
 import android.webkit.ValueCallback
+import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import com.sofutil.todosw.R
 import com.sofutil.todosw.TodoSphereActivity
 import com.sofutil.todosw.eriger.presentation.ui.load.TodoSphereLoadFragment
 import org.koin.android.ext.android.inject
@@ -24,7 +23,6 @@ import org.koin.android.ext.android.inject
 class TodoSphereV : Fragment(){
 
     private val todoSphereDataStore by activityViewModels<TodoSphereDataStore>()
-    private lateinit var todoSphereView: TodoSphereVi
     lateinit var todoSphereRequestFromChrome: PermissionRequest
 
 
@@ -35,13 +33,14 @@ class TodoSphereV : Fragment(){
         requireActivity().onBackPressedDispatcher.addCallback(this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (todoSphereView.canGoBack()) {
-                        todoSphereView.goBack()
+                    if (todoSphereDataStore.todoSphereView.canGoBack()) {
+                        todoSphereDataStore.todoSphereView.goBack()
                     } else if (todoSphereDataStore.todoSphereViList.size > 1) {
-                        this.isEnabled = false
                         todoSphereDataStore.todoSphereViList.removeAt(todoSphereDataStore.todoSphereViList.lastIndex)
-                        todoSphereView.destroy()
-                        requireActivity().onBackPressedDispatcher.onBackPressed()
+                        todoSphereDataStore.todoSphereView.destroy()
+                        val previousWebView = todoSphereDataStore.todoSphereViList.last()
+                        attachWebViewToContainer(previousWebView)
+                        todoSphereDataStore.todoSphereView = previousWebView
                     }
                 }
 
@@ -53,13 +52,32 @@ class TodoSphereV : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        if (todoSphereDataStore.todoIsFirstCreate) {
+            todoSphereDataStore.todoIsFirstCreate = false
+            todoSphereDataStore.todoSphereContainerView = FrameLayout(requireContext()).apply {
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                id = View.generateViewId()
+            }
+            return todoSphereDataStore.todoSphereContainerView
+        } else {
+            return todoSphereDataStore.todoSphereContainerView
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        
         if (todoSphereDataStore.todoSphereViList.isEmpty()) {
-            todoSphereView = TodoSphereVi(requireContext(), object :
+            todoSphereDataStore.todoSphereView = TodoSphereVi(requireContext(), object :
                 TodoSphereCallBack {
                 override fun todoSphereHandleCreateWebWindowRequest(todoSphereVi: TodoSphereVi) {
                     todoSphereDataStore.todoSphereViList.add(todoSphereVi)
-                    findNavController().navigate(R.id.action_todoSphereV_self)
+                    todoSphereDataStore.todoSphereView = todoSphereVi
+                    attachWebViewToContainer(todoSphereVi)
                 }
 
                 override fun todoSphereOnPermissionRequest(todoSphereRequest: PermissionRequest?) {
@@ -102,16 +120,23 @@ class TodoSphereV : Fragment(){
                 }
 
             }, todoSphereWindow = requireActivity().window)
-            todoSphereView.todoSphereFLoad(arguments?.getString(TodoSphereLoadFragment.TODO_SPHERE_D) ?: "")
+            todoSphereDataStore.todoSphereView.todoSphereFLoad(arguments?.getString(TodoSphereLoadFragment.TODO_SPHERE_D) ?: "")
 //            ejvview.fLoad("www.google.com")
-            todoSphereDataStore.todoSphereViList.add(todoSphereView)
+            todoSphereDataStore.todoSphereViList.add(todoSphereDataStore.todoSphereView)
+            attachWebViewToContainer(todoSphereDataStore.todoSphereView)
         } else {
-            todoSphereView = todoSphereDataStore.todoSphereViList.last()
+            todoSphereDataStore.todoSphereView = todoSphereDataStore.todoSphereViList.last()
+            attachWebViewToContainer(todoSphereDataStore.todoSphereView)
         }
-        return todoSphereView
     }
 
-
+    private fun attachWebViewToContainer(w: TodoSphereVi) {
+        todoSphereDataStore.todoSphereContainerView.post {
+            (w.parent as? ViewGroup)?.removeView(w)
+            todoSphereDataStore.todoSphereContainerView.removeAllViews()
+            todoSphereDataStore.todoSphereContainerView.addView(w)
+        }
+    }
 
 
 }

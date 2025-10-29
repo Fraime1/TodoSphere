@@ -10,9 +10,9 @@ class TodoSphereSharedPreference(context: Context) {
         get() = todoSpherePrefs.getString(TODO_SPHERE_SAVED_URL, "") ?: ""
         set(value) = todoSpherePrefs.edit { putString(TODO_SPHERE_SAVED_URL, value) }
 
-    var todoSphereExpired : Int
-        get() = todoSpherePrefs.getInt(TODO_SPHERE_EXPIRED, 0)
-        set(value) = todoSpherePrefs.edit { putInt(TODO_SPHERE_EXPIRED, value) }
+    var todoSphereExpired : Long
+        get() = todoSpherePrefs.getLong(TODO_SPHERE_EXPIRED, 0L)
+        set(value) = todoSpherePrefs.edit { putLong(TODO_SPHERE_EXPIRED, value) }
 
     var todoSphereAppState: Int
         get() = todoSpherePrefs.getInt(TODO_SPHERE_APPLICATION_STATE, 0)

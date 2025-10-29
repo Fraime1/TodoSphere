@@ -17,9 +17,5 @@
     <fragment
         android:id="@+id/todoSphereV"
         android:name="com.sofutil.todosw.eriger.presentation.ui.view.TodoSphereV"
-        android:label="TodoSphereV" >
-        <action
-            android:id="@+id/action_todoSphereV_self"
-            app:destination="@id/todoSphereV" />
-    </fragment>
+        android:label="TodoSphereV" />
 </navigation>
