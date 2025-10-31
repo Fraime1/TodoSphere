@@ -27,6 +27,11 @@ class TodoSphereVi(
     private val todoSphereCallback: TodoSphereCallBack,
     private val todoSphereWindow: Window
 ) : WebView(todoSphereContext) {
+    private var fileChooserHandler: ((ValueCallback<Array<Uri>>?) -> Unit)? = null
+
+    fun setFileChooserHandler(handler: (ValueCallback<Array<Uri>>?) -> Unit) {
+        this.fileChooserHandler = handler
+    }
     init {
         val webSettings = settings
         webSettings.apply {
@@ -113,7 +118,7 @@ class TodoSphereVi(
                 filePathCallback: ValueCallback<Array<Uri>>?,
                 fileChooserParams: WebChromeClient.FileChooserParams?,
             ): Boolean {
-                todoSphereCallback.todoSphereOnShowFileChooser(filePathCallback)
+                fileChooserHandler?.invoke(filePathCallback)
                 return true
             }
             override fun onCreateWindow(

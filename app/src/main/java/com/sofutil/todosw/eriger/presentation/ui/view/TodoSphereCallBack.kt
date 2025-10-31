@@ -10,7 +10,5 @@ interface TodoSphereCallBack {
 
     fun todoSphereOnPermissionRequest(todoSphereRequest: PermissionRequest?)
 
-    fun todoSphereOnShowFileChooser(todoSphereFilePathCallback: ValueCallback<Array<Uri>>?)
-
     fun todoSphereOnFirstPageFinished()
 }

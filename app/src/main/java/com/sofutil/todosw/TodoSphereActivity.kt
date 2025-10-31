@@ -22,21 +22,6 @@ import org.koin.android.ext.android.inject
 
 class TodoSphereActivity : AppCompatActivity() {
 
-    lateinit var todoSpherePhoto: Uri
-    var todoSphereFilePathFromChrome: ValueCallback<Array<Uri>>? = null
-
-    val todoSphereTakeFile = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
-        todoSphereFilePathFromChrome?.onReceiveValue(arrayOf(it ?: Uri.EMPTY))
-    }
-
-    val todoSphereTakePhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) {
-        if (it) {
-            todoSphereFilePathFromChrome?.onReceiveValue(arrayOf(todoSpherePhoto))
-        } else {
-            todoSphereFilePathFromChrome?.onReceiveValue(null)
-        }
-    }
-
     private val todoSpherePushHandler by inject<TodoSpherePushHandler>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
